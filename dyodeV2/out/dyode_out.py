@@ -36,7 +36,7 @@ if __name__ == '__main__':
 
     # Iterate on modules
     modules = config.get('modules')
-    for module, properties in modules.iteritems():
+    for module, properties in modules.items():
         #print module
         log.debug('Parsing "' + module + '"')
         log.debug('Trying to launch a new process for module "' + str(module) +'"')

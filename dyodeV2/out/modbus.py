@@ -18,13 +18,13 @@ from twisted.internet.task import LoopingCall
 #---------------------------------------------------------------------------#
 # import the modbus libraries we need
 #---------------------------------------------------------------------------#
-from pymodbus.server.async import StartTcpServer
+from pymodbus.server.asynchronous import StartTcpServer
 from pymodbus.device import ModbusDeviceIdentification
 from pymodbus.datastore import ModbusSequentialDataBlock
 from pymodbus.datastore import ModbusSlaveContext, ModbusServerContext
 from pymodbus.transaction import ModbusRtuFramer, ModbusAsciiFramer
 from twisted.internet.task import LoopingCall
-from ConfigParser import SafeConfigParser
+from configparser import SafeConfigParser
 import subprocess
 #---------------------------------------------------------------------------#
 
@@ -47,7 +47,7 @@ def get_modbus_data_serial():
     if len(x) > 0:
         decoded_data = base64.b64decode(x)
         log.debug(pickle.loads(decoded_data))
-	return pickle.loads(decoded_data)
+        return pickle.loads(decoded_data)
 
 def modbus_master_update(a):
     log.debug('Updating : %s' % a[0])
@@ -62,7 +62,7 @@ def modbus_master_update(a):
         for register_start, values in data['registers'].iteritems():
             log.debug('Register start at : %s with values : %s' % (register_start, values))
             a[2][0x01].setValues(3, int(register_start), values)
-    except Exception, error:
+    except Exception as error:
         log.error('Error obtaining Modbus values')
         log.error(str(error))
         return 0
