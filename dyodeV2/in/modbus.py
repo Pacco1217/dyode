@@ -18,13 +18,13 @@ from twisted.internet.task import LoopingCall
 #---------------------------------------------------------------------------#
 # import the modbus libraries we need
 #---------------------------------------------------------------------------#
-from pymodbus.server.async import StartTcpServer
+from pymodbus.server.asynchronous import StartTcpServer
 from pymodbus.device import ModbusDeviceIdentification
 from pymodbus.datastore import ModbusSequentialDataBlock
 from pymodbus.datastore import ModbusSlaveContext, ModbusServerContext
 from pymodbus.transaction import ModbusRtuFramer, ModbusAsciiFramer
 from twisted.internet.task import LoopingCall
-from ConfigParser import SafeConfigParser
+from configparser import SafeConfigParser
 import subprocess
 #---------------------------------------------------------------------------#
 
@@ -38,7 +38,7 @@ WAIT_TIME = 1
 
 def get_modbus(properties):
     try:
-        print "Performing an action which may throw an exception."
+        print("Performing an action which may throw an exception.")
         client = ModbusClient(properties['ip'], port=502)
         client.connect()
         log.debug(properties['registers'])
@@ -78,7 +78,7 @@ def get_modbus(properties):
         log.debug(str(modbus_values))
         return modbus_values
 
-    except Exception, error:
+    except Exception as error:
         log.debug('Error connecting to %s' % properties['ip'])
         log.debug(str(error))
 def modbus_send_serial(data, properties):
@@ -106,7 +106,7 @@ def modbus_loop(module, properties):
         try:
             data = get_modbus(properties)
             modbus_send_serial(data, properties)
-        except Exception, error:
+        except Exception as error:
             log.debug('Error while updating modbus values')
             log.debug(str(error))
         time.sleep(WAIT_TIME)

@@ -38,7 +38,7 @@ if __name__ == '__main__':
  
     # Iterate on modules
     modules = config.get('modules')
-    for module, properties in modules.iteritems():
+    for module, properties in modules.items():
         log.debug('Parsing %s' % module)
         log.debug('Trying to launch a new process for module %s' % module)
         p = multiprocessing.Process(name=str(module), target=launch_agents, args=(module, properties))
