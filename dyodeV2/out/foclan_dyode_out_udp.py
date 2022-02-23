@@ -25,7 +25,7 @@ def send_udp(data):
         udp_socket.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
         udp_socket.sendto(data, (TARGET_IP, TARGET_PORT))
         udp_socket.close()
-    except Exception, error:
+    except Exception as error:
             log.debug('Connection failed to final destination')
             log.debug(str(error))
 
@@ -58,7 +58,7 @@ def receiving_loop():
     while(1):
         try:
             get_modbus_data_serial()
-        except Exception, error:
+        except Exception as error:
             log.debug('Error while updating modbus values')
             log.debug(str(error))
 
